@@ -175,8 +175,13 @@ for i = 1, 5 do
 	minetest.override_item("default:grass_"..i, {drop = {
 		max_items = 1,
 		items = {
-			{items = {'farming:seed_wheat'},rarity = 5},
-                        {items = {'farming:seed_potato'}, rarity = 5},
+			{items = {'farming:seed_wheat'},rarity = 10},
+            {items = {'farming:seed_potato'}, rarity = 20},
+			{items = {'farming:seed_rice'},rarity = 20},
+			{items = {'farming:seed_canola'},rarity = 20},
+			{items = {'farming:seed_flax'},rarity = 20},
+			{items = {'farming:seed_corn'},rarity = 60},
+			{items = {'farming:seed_rye'},rarity = 60},
 			{items = {'default:grass_1'}},
 		}
 	}})
@@ -185,8 +190,53 @@ end
 minetest.override_item("default:junglegrass", {drop = {
 	max_items = 1,
 	items = {
-		{items = {'farming:seed_cotton'},rarity = 8},
+		{items = {'farming:seed_cotton'},rarity = 40},
+		{items = {'farming:seed_rice'},rarity = 20},
 		{items = {'default:junglegrass'}},
+	}
+}})
+
+for i = 1, 5 do
+	minetest.override_item("default:dry_grass_"..i, {drop = {
+		max_items = 1,
+		items = {
+			{items = {'farming:seed_agave'},rarity = 40},
+			{items = {'farming:seed_canola'},rarity = 40},
+			{items = {'farming:seed_cotton'},rarity = 20},
+			{items = {'farming:seed_corn'},rarity = 10},
+			{items = {'farming:seed_sorghum'},rarity = 10},
+			{items = {'default:dry_grass_1'}},
+		}
+	}})
+end
+
+for i = 1, 3 do
+	minetest.override_item("default:fern_"..i, {drop = {
+		max_items = 1,
+		items = {
+			{items = {'farming:seed_rhubarb'},rarity = 20},
+			{items = {'farming:seed_rice'},rarity = 20},
+			{items = {'farming:seed_potato'}, rarity = 10},
+			{items = {'farming:seed_rye'}, rarity = 10},
+			{items = {'default:fern_1'}},
+		}
+	}})
+end
+
+for i = 1, 3 do
+	minetest.override_item("default:marram_grass_"..i, {drop = {
+		max_items = 1,
+		items = {
+			{items = {'default:marram_grass_1'}},
+		}
+	}})
+end
+
+minetest.override_item("default:cactus", {drop = {
+	max_items = 1,
+	items = {
+		{items = {'farming:seed_agave'},rarity = 40},
+		{items = {'default:cactus'}},
 	}
 }})
 
