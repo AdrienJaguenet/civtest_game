@@ -464,6 +464,9 @@ farming.register_plant = function(name, def)
 	if not def.fertility then
 		def.fertility = {}
 	end
+	if not def.visual_scale then
+		visual_scale = 1.00
+	end
 
 	def.name = name
         def.requires_soil = true
@@ -487,6 +490,7 @@ farming.register_plant = function(name, def)
 		place_param2 = def.place_param2 or nil, -- this isn't actually used for placement
 		walkable = false,
 		sunlight_propagates = true,
+		visual_scale = def.visual_scale,
 		selection_box = {
 			type = "fixed",
 			fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
@@ -523,11 +527,13 @@ farming.register_plant = function(name, def)
 	})
 
 	-- Register harvest
-	minetest.register_craftitem(":" .. mname .. ":" .. pname, {
-		description = pname:gsub("^%l", string.upper),
-		inventory_image = mname .. "_" .. pname .. ".png",
-		groups = def.groups or {flammable = 2},
+	if not def.drops_seeds then
+		minetest.register_craftitem(":" .. mname .. ":" .. pname, {
+			description = pname:gsub("^%l", string.upper),
+			inventory_image = mname .. "_" .. pname .. ".png",
+			groups = def.groups or {flammable = 2},
 	})
+	end
 
 	-- Register growing steps
 	for i = 1, def.steps do
@@ -536,6 +542,10 @@ farming.register_plant = function(name, def)
 			base_rarity =  8 - (i - 1) * 7 / (def.steps - 1)
 		end
 		local drop = {
+			items = {}
+		}
+		if not def.drops_seeds then
+		drop = {
 			items = {
 				{items = {mname .. ":" .. pname}, rarity = base_rarity},
 				{items = {mname .. ":" .. pname}, rarity = base_rarity * 2},
@@ -543,6 +553,16 @@ farming.register_plant = function(name, def)
 				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity * 2},
 			}
 		}
+		else
+		drop = {
+			items = {
+				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity},
+				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity},
+				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity * 2},
+				{items = {mname .. ":seed_" .. pname}, rarity = base_rarity * 3},
+			}
+		}
+		end
 		local nodegroups = {snappy = 3, flammable = 2, plant = 1, not_in_creative_inventory = 1, attached_node = 1}
 		nodegroups[pname] = i
 
