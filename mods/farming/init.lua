@@ -23,7 +23,7 @@ farming.register_plant("farming:wheat", {
 	fertility = {"grassland", "desert"},
 	groups = {food_wheat = 1, flammable = 4, spoils=7},
 	place_param2 = 3,
-	custom_growth = {optimum_heat = 50, heat_scaling = "exponential", heat_a = 2.5, heat_b = 1.7, heat_base_speed = 5000, variance = 1250},
+	custom_growth = {optimum_heat = 60, heat_scaling = "exponential", heat_a = 2.1, heat_b = 1.2, heat_base_speed = 5000, optimum_humidity = 46, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 2500, variance = 1250},
 })
 
 minetest.register_craftitem("farming:flour", {
@@ -40,8 +40,9 @@ minetest.register_craftitem("farming:bread", {
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "farming:flour",
-	recipe = {{"farming:wheat", "farming:wheat"}}
+	recipe = {"farming:wheat", "farming:wheat"}
 })
 
 minetest.register_craft({
@@ -60,7 +61,7 @@ farming.register_plant("farming:cotton", {
 	steps = 8,
 	fertility = {"grassland", "desert"},
 	groups = {flammable = 4},
-	custom_growth = {optimum_heat = 75, heat_scaling = "exponential", heat_a = 10, heat_b = 1.2, heat_base_speed = 2500, variance = 500},
+	custom_growth = {optimum_heat = 75, heat_scaling = "exponential", heat_a = 4.0, heat_b = 1.8, heat_base_speed = 2500, optimum_humidity = 55, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 2500, variance = 500},
 })
 
 minetest.register_craftitem("farming:string", {
@@ -80,6 +81,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "farming:string 2",
 	recipe = {
+		{"farming:cotton"},
 		{"farming:cotton"},
 		{"farming:cotton"},
 	}
@@ -147,7 +149,7 @@ farming.register_plant("farming:potato", {
 	fertility = {"grassland","desert"},
 	groups = {food_potato = 1, flammable = 4},
 	place_param2 = 3,
-	custom_growth = {optimum_heat = 40, heat_scaling = "exponential", heat_a = 2.5, heat_b = 1.7, heat_base_speed = 10000, variance = 2500},
+	custom_growth = {optimum_heat = 40, heat_scaling = "exponential", heat_a = 2.5, heat_b = 1.3, heat_base_speed = 7500, optimum_humidity = 77, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 7500, variance = 2500},
 })
 
 minetest.register_craftitem("farming:potato", {
@@ -171,6 +173,222 @@ minetest.register_craft({
 	cooktime = 15,
 	output = "farming:baked_potato",
 	recipe = "farming:potato"
+})
+
+-- Rice
+
+farming.register_plant("farming:rice", {
+	description = "Rice Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_rice_seed.png",
+	steps = 4,
+	fertility = {"grassland","desert"},
+	groups = {food_rice = 1, flammable = 4},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 65, heat_scaling = "exponential", heat_a = 3.0, heat_b = 2.0, heat_base_speed = 3000, optimum_humidity = 73, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 3000, variance = 1250},
+})
+
+minetest.register_craftitem("farming:rice", {
+	description = "Rice",
+	inventory_image = "farming_rice.png",
+	groups = {food_rice = 1},
+})
+
+
+minetest.register_craftitem("farming:cooked_rice", {
+	description = "Cooked Rice",
+	inventory_image = "farming_cooked_rice.png",
+	on_use = minetest.item_eat(5),
+	groups = {food_rice = 1, flammable = 2, spoils=1},
+})
+
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 10,
+	output = "farming:cooked_rice",
+	recipe = "farming:rice"
+})
+
+minetest.register_craftitem("farming:rice_flour", {
+	description = "Rice Flour",
+	inventory_image = "farming_rice_flour.png",
+	groups = {food_flour = 1},
+})
+
+minetest.register_craft({
+	output = "farming:rice_flour",
+	recipe = {{"farming:rice", "farming:rice"}}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 10,
+	output = "farming:bread",
+	recipe = "farming:rice_flour"
+})
+
+-- Canola
+
+farming.register_plant("farming:canola", {
+	description = "Canola Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_canola_seed.png",
+	steps = 6,
+	fertility = {"grassland","desert"},
+	groups = {food_canola = 1, flammable = 4},
+	place_param2 = 3,
+	drops_seeds = 1,
+	custom_growth = {optimum_heat = 50, heat_scaling = "exponential", heat_a = 2.0, heat_b = 1.3, heat_base_speed = 10000, optimum_humidity = 50, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.2, humidity_base_speed = 5000, variance = 2500},
+})
+
+-- Soybeans
+
+farming.register_plant("farming:soybean", {
+	description = "Soybean Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_soybean_seed.png",
+	steps = 4,
+	fertility = {"grassland","desert"},
+	groups = {food_bean = 1, flammable = 4},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 60, heat_scaling = "exponential", heat_a = 2.8, heat_b = 1.8, heat_base_speed = 7500, optimum_humidity = 53, humidity_scaling = "exponential", humidity_a = 1.2, humidity_b = 1.5, humidity_base_speed = 7500, variance = 1250},
+})
+
+minetest.register_craftitem("farming:soybean", {
+	description = "Soybean",
+	inventory_image = "farming_soybean.png",
+	groups = {food_bean = 1},
+})
+
+-- Agave
+
+farming.register_plant("farming:agave", {
+	description = "Agave Cutting",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_agave_seed.png",
+	steps = 8,
+	fertility = {"desert"},
+	groups = {food_cactus = 1, flammable = 1},
+	place_param2 = 2,
+	custom_growth = {optimum_heat = 90, heat_scaling = "exponential", heat_a = 2.0, heat_b = 1.4, heat_base_speed = 20000, optimum_humidity = 18, humidity_scaling = "exponential", humidity_a = 1.3, humidity_b = 2.5, humidity_base_speed = 20000, variance = 8000},
+})
+
+minetest.register_craftitem("farming:agave", {
+	description = "Agave Leaf",
+	inventory_image = "farming_agave.png",
+	groups = {food_syrup = 1},
+})
+
+-- Rhubarb
+
+farming.register_plant("farming:rhubarb", {
+	description = "Rhubarb Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_rhubarb_seed.png",
+	steps = 4,
+	fertility = {"grassland"},
+	groups = {flammable = 4},
+	place_param2 = 2,
+	custom_growth = {optimum_heat = 38, heat_scaling = "exponential", heat_a = 2.1, heat_b = 1.7, heat_base_speed = 10000, optimum_humidity = 75, humidity_scaling = "exponential", humidity_a = 1.2, humidity_b = 1.7, humidity_base_speed = 10000, variance = 2500},
+})
+
+minetest.register_craftitem("farming:rhubarb", {
+	description = "Rhubarb",
+	inventory_image = "farming_rhubarb.png",
+	groups = {food_stalk = 1},
+})
+
+-- Flax
+
+farming.register_plant("farming:flax", {
+	description = "Flax Seed",
+	inventory_image = "farming_flax_seed.png",
+	steps = 5,
+	fertility = {"grassland"},
+	place_param2 = 3,
+	groups = {flammable = 4},
+	custom_growth = {optimum_heat = 44, heat_scaling = "exponential", heat_a = 2.2, heat_b = 1.6, heat_base_speed = 8000, optimum_humidity = 55, humidity_scaling = "exponential", humidity_a = 1.2, humidity_b = 1.6, humidity_base_speed = 5000, variance = 900},
+})
+
+minetest.register_craft({
+	output = "wool:white",
+	recipe = {
+		{"farming:flax", "farming:flax", "farming:flax"},
+		{"farming:flax", "farming:flax", "farming:flax"},
+	}
+})
+
+minetest.register_craft({
+	output = "farming:string 2",
+	recipe = {
+		{"farming:flax"},
+		{"farming:flax"},
+	}
+})
+
+-- Sorghum
+
+farming.register_plant("farming:sorghum", {
+	description = "Sorghum Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_sorghum_seed.png",
+	steps = 6,
+	fertility = {"grassland", "desert"},
+	groups = {flammable = 4, spoils=14},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 75, heat_scaling = "exponential", heat_a = 1.6, heat_b = 1.6, heat_base_speed = 7500, optimum_humidity = 35, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 7500, variance = 2500},
+})
+
+-- Corn
+
+farming.register_plant("farming:corn", {
+	description = "Corn Kernel",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_corn_seed.png",
+	steps = 6,
+	fertility = {"grassland", "desert"},
+	groups = {flammable = 4, spoils=7},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 62, heat_scaling = "exponential", heat_a = 1.6, heat_b = 1.6, heat_base_speed = 4500, optimum_humidity = 33, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 5500, variance = 2500},
+})
+
+-- Rye
+
+farming.register_plant("farming:rye", {
+	description = "Rye Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_rye_seed.png",
+	steps = 8,
+	fertility = {"grassland"},
+	groups = {food_wheat = 1, flammable = 4, spoils=7},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 37, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 7500, optimum_humidity = 54, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 5000, variance = 2500},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "farming:flour",
+	recipe = {"farming:rye", "farming:rye", "farming:rye"}
+})
+
+-- Other new ingredients
+
+minetest.register_craftitem("farming:seed_oil", {
+	description = "Seed Oil",
+	inventory_image = "farming_seed_oil.png",
+	groups = {food_oil = 1, flammable = 4},
+})
+
+minetest.register_craftitem("farming:tofu", {
+	description = "Tofu",
+	inventory_image = "farming_tofu.png",
+	groups = {food_tofu = 1, food_egg = 1, food_meat = 1},
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "farming:seed_oil",
+	burntime = 20,
 })
 
 -- Saplings
