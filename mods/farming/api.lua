@@ -278,7 +278,7 @@ farming.register_hoe = function(name, def)
 			return farming.hoe_on_use(itemstack, user, pointed_thing, def.max_uses)
 		end,
                 on_place = function(itemstack, user, pointed_thing)
-                      return farming.hoe_on_place(itemstack, user, pointed_thing)
+                      return farming.hoe_on_place(itemstack, user, pointed_thing, def.max_uses)
                 end,
 		on_secondary_use = function(itemstack, user, pointed_thing)
 			return farming.hoe_on_secondary_use(itemstack,user,pointed_thing)
