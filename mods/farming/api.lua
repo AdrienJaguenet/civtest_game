@@ -385,7 +385,7 @@ farming.grow_plant = function(pos, elapsed)
 
 	if not def.next_plant then
 		-- disable timer for fully grown plant
-		return true
+		return false
 	end
 
 	-- grow seed
@@ -681,8 +681,6 @@ function farming.try_grow_crop(pos, node)
    local full_steps = math.floor(steps)
    local next_step_pct = steps - full_steps
 
-   local result = false
-
    if DEBUG then
       minetest.log("ESLG: " .. tostring(elapsed_since_last_grow))
       minetest.log("AVG: " .. tostring(average_bound))
@@ -691,18 +689,21 @@ function farming.try_grow_crop(pos, node)
       minetest.log("NEXT_STEP_PCT: " .. tostring(next_step_pct))
    end
 
+   local succeeded = false
+
    if elapsed_since_last_grow >= average_bound then
       for i=1, full_steps, 1 do
-         result = farming.grow_plant(pos)
+         succeeded = farming.grow_plant(pos)
       end
    end
 
-   meta:set_int("last_grow", last_growth + round(average_bound * full_steps))
+   if succeeded then
+      meta:set_int("last_grow", last_growth + round(average_bound * full_steps))
+      local node_timer = minetest.get_node_timer(pos)
+      node_timer:set(average_bound, average_bound * next_step_pct)
+   end
 
-   local node_timer = minetest.get_node_timer(pos)
-   node_timer:set(average_bound, average_bound * next_step_pct)
-
-   return result, full_steps, next_step_pct
+   return succeeded, full_steps, next_step_pct
 end
 
 function farming.register_growth_lbm(pname, lbm_nodes)
@@ -793,6 +794,8 @@ function farming.register_sapling(name, def)
    def.next_plant = function(plant_name, pos)
       farming.grow_sapling(pos)
    end
+
+   def.growth_step = 0
 
    farming.registered_plants[pname] = def
    minetest.register_node(":" .. name, def)
