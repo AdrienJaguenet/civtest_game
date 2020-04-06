@@ -8,6 +8,12 @@
 ---@field z number
 local Posistion = {}
 
+---@class Node
+---@field name string
+---@field param1 any
+---@field param2 any
+local node = {}
+
 ---@class minetest
 minetest = {}
 
@@ -22,8 +28,60 @@ function minetest.chat_send_all(message) end
 ---@param def table
 function minetest.register_craftitem(name, def) end
 
----@class ObjectRef
+--Global callback registration functions
+--------------------------------------
 
+--Call these functions only at load time!
+
+---@param func function
+function minetest.register_globalstep(func) end
+
+---@param func function
+function minetest.register_on_mods_loade(func) end
+
+---@param func function
+function minetest.register_on_shutdown(func) end
+
+---@param func function
+function minetest.register_on_placenode(func) end
+
+---@param func function
+function minetest.register_on_dignode(func) end
+
+---@param func function
+function minetest.register_on_punchnode(func) end
+
+--Environment access
+-----------------------
+
+---@param pos Posistion
+---@param node Node
+function minetest.set_node(pos, node) end
+
+---@param pos Posistion
+---@param node Node
+function minetest.add_node(pos, node) end
+
+---@param pos_array Posistion[]
+---@param node Node
+function minetest.bulk_set_node(pos_array, node) end
+
+---@param pos Posistion
+---@param node Node
+function minetest.swap_node(pos, node) end
+
+---@param pos Posistion
+function minetest.remove_node(pos) end
+
+---@param pos Posistion
+---@return Node
+function minetest.get_node(pos) end
+
+---@param pos Posistion
+---@return Node | nil
+function minetest.get_node_or_nil(pos) end
+
+---@class ObjectRef
 local ObjectRef ={} --This has no function, but emmylua requires it
 
 ---@return Posistion
