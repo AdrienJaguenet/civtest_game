@@ -118,22 +118,8 @@ function farming.compute_growth_interval(pos, growth, again)
 end
 
 function farming.plant_from_node_name(name)
-   local plantname
-   if string.find(name, "seed") then
-      -- farming:seed_<name>
-      plantname = name:split("_")[2]
-   elseif string.find(name, "sapling") then
-      plantname = name:split(":")[2]
-   else
-      -- farming:<name>_<stage>
-      local modname_plantname = name:split("_")[1]
-      if modname_plantname then
-         plantname = modname_plantname:split(":")[2]
-      else
-         return nil
-      end
-   end
-   return farming.registered_plants[plantname]
+   local plant_name = minetest.registered_nodes[name].plant_name
+   return farming.registered_plants[plant_name]
 end
 
 local function growth_timescale(time)
@@ -517,6 +503,7 @@ farming.register_plant = function(name, def)
 		end,
                 growth_step = 0,
 		next_plant = mname .. ":" .. pname .. "_1",
+		plant_name = pname,
 		minlight = def.minlight,
 		maxlight = def.maxlight,
 		custom_growth = def.custom_growth,
@@ -590,6 +577,7 @@ farming.register_plant = function(name, def)
 			groups = nodegroups,
 			sounds = default.node_sound_leaves_defaults(),
 			next_plant = next_plant,
+			plant_name = pname,
 			minlight = def.minlight,
 			maxlight = def.maxlight,
 			custom_growth = def.custom_growth,
@@ -796,6 +784,7 @@ function farming.register_sapling(name, def)
    end
 
    def.growth_step = 0
+   def.plant_name = pname
 
    farming.registered_plants[pname] = def
    minetest.register_node(":" .. name, def)
