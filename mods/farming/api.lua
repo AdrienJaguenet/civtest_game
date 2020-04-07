@@ -146,6 +146,24 @@ local function growth_timescale(time)
    return divisor, unit, over_three_months
 end
 
+function farming.start_growth_cycle(pos, node_name)
+   local meta = minetest.get_meta(pos)
+   local time = os.time(os.date("!*t"))
+
+   local plant = farming.plant_from_node_name(node_name)
+   local growth = plant.custom_growth
+   local lower_bound, higher_bound = farming.compute_growth_interval(
+      pos, growth, false
+   )
+   local average_bound = round((lower_bound + higher_bound) / 2)
+
+   local node_timer = minetest.get_node_timer(pos)
+   node_timer:start(average_bound)
+
+   meta:set_string("last_crop_name", sapling_name)
+   meta:set_string("last_grow", time)
+end
+
 farming.hoe_on_use = function(itemstack, user, pointed_thing)
 
    if pointed_thing
@@ -159,8 +177,6 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing)
       local biome_data = minetest.get_biome_data(pos)
 
       local biome_name = minetest.get_biome_name(biome_data.biome)
-      local heat = tostring(biome_data.heat)
-      local humidity = tostring(biome_data.humidity)
       minetest.chat_send_player(
          name,
          "This biome is a " .. biome_name .. ". "
@@ -215,7 +231,7 @@ farming.hoe_on_use = function(itemstack, user, pointed_thing)
 
          local growth_step = core.registered_nodes[node.name].growth_step
 
-         local total_growth = growth_step * average_bound + elapsed
+         local total_growth = (growth_step * average_bound) + elapsed
          local total_divisor, total_unit = growth_timescale(total_growth)
 
          local pretty_total_growth = string.format(
@@ -341,21 +357,8 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	-- add the node and remove 1 item from the itemstack
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 
-        local meta = minetest.get_meta(pt.above)
-        local time = os.time(os.date("!*t"))
-
-        local plant = farming.plant_from_node_name(plantname)
-        local growth = plant.custom_growth
-        local lower_bound, higher_bound = farming.compute_growth_interval(
-           pt.above, growth, false
-        )
-        local average_bound = round((lower_bound + higher_bound) / 2)
-
-        local node_timer = minetest.get_node_timer(pt.above)
-        node_timer:start(average_bound)
-
-        meta:set_string("last_crop_name", plantname)
-        meta:set_string("last_grow", time)
+        -- Start the seed's growth cycle
+        farming.start_growth_cycle(pt.above, plantname)
 
 	if not (creative and creative.is_enabled_for
 			and creative.is_enabled_for(player_name)) then

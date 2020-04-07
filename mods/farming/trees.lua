@@ -187,11 +187,8 @@ function farming.sapling_on_place(itemstack, placer, pointed_thing,
 	local ndef = minetest.registered_nodes[sapling_name]
 	minetest.set_node(pos, newnode)
 
-        local meta = minetest.get_meta(pos)
-        local time = os.time(os.date("!*t"))
-
-        meta:set_string("last_crop_name", sapling_name)
-        meta:set_string("last_grow", time)
+        -- Start the sapling's growth cycle
+        farming.start_growth_cycle(pos, sapling_name)
 
 	-- Run callback
 	if ndef and ndef.after_place_node then
