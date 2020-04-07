@@ -160,7 +160,7 @@ function farming.start_growth_cycle(pos, node_name)
    local node_timer = minetest.get_node_timer(pos)
    node_timer:start(average_bound)
 
-   meta:set_string("last_crop_name", sapling_name)
+   meta:set_string("last_crop_name", node_name)
    meta:set_string("last_grow", time)
 end
 
