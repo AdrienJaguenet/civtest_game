@@ -180,6 +180,9 @@ for i = 1, 5 do
 			{items = {'farming:seed_rice'},rarity = 20},
 			{items = {'farming:seed_canola'},rarity = 20},
 			{items = {'farming:seed_flax'},rarity = 20},
+			{items = {'farming:seed_tomato'},rarity = 20},
+			{items = {'farming:seed_lettuce'},rarity = 20},
+			{items = {'farming:seed_spice_leaf'},rarity = 20},
 			{items = {'farming:seed_corn'},rarity = 60},
 			{items = {'farming:seed_rye'},rarity = 60},
 			{items = {'default:grass_1'}},
@@ -192,6 +195,7 @@ minetest.override_item("default:junglegrass", {drop = {
 	items = {
 		{items = {'farming:seed_cotton'},rarity = 40},
 		{items = {'farming:seed_rice'},rarity = 20},
+		{items = {'farming:seed_spice_leaf'},rarity = 20},
 		{items = {'default:junglegrass'}},
 	}
 }})
@@ -205,6 +209,7 @@ for i = 1, 5 do
 			{items = {'farming:seed_cotton'},rarity = 20},
 			{items = {'farming:seed_corn'},rarity = 10},
 			{items = {'farming:seed_sorghum'},rarity = 10},
+			{items = {'farming:seed_tomato'},rarity = 20},
 			{items = {'default:dry_grass_1'}},
 		}
 	}})
@@ -218,6 +223,8 @@ for i = 1, 3 do
 			{items = {'farming:seed_rice'},rarity = 20},
 			{items = {'farming:seed_potato'}, rarity = 10},
 			{items = {'farming:seed_rye'}, rarity = 10},
+			{items = {'farming:seed_lettuce'},rarity = 20},
+			{items = {'farming:seed_beet'},rarity = 20},
 			{items = {'default:fern_1'}},
 		}
 	}})

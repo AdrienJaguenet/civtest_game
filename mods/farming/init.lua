@@ -147,7 +147,7 @@ farming.register_plant("farming:potato", {
 	inventory_image = "farming_potato_seed.png",
 	steps = 4,
 	fertility = {"grassland","desert"},
-	groups = {food_potato = 1, flammable = 4},
+	groups = {food_potato = 1, food_rich =1, flammable = 4},
 	place_param2 = 3,
 	custom_growth = {optimum_heat = 40, heat_scaling = "exponential", heat_a = 2.5, heat_b = 1.3, heat_base_speed = 7500, optimum_humidity = 77, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 7500, variance = 2500},
 })
@@ -185,7 +185,7 @@ farming.register_plant("farming:rice", {
 	fertility = {"grassland","desert"},
 	groups = {food_rice = 1, flammable = 4},
 	place_param2 = 3,
-	custom_growth = {optimum_heat = 65, heat_scaling = "exponential", heat_a = 3.0, heat_b = 2.0, heat_base_speed = 3000, optimum_humidity = 73, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 3000, variance = 1250},
+	custom_growth = {optimum_heat = 65, heat_scaling = "exponential", heat_a = 1.9, heat_b = 2.0, heat_base_speed = 3000, optimum_humidity = 73, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 3000, variance = 1250},
 })
 
 minetest.register_craftitem("farming:rice", {
@@ -198,7 +198,7 @@ minetest.register_craftitem("farming:rice", {
 minetest.register_craftitem("farming:cooked_rice", {
 	description = "Cooked Rice",
 	inventory_image = "farming_cooked_rice.png",
-	on_use = minetest.item_eat(5),
+	on_use = minetest.item_eat(3),
 	groups = {food_rice = 1, flammable = 2, spoils=1},
 })
 
@@ -235,7 +235,7 @@ farming.register_plant("farming:canola", {
 	inventory_image = "farming_canola_seed.png",
 	steps = 6,
 	fertility = {"grassland","desert"},
-	groups = {food_canola = 1, flammable = 4},
+	groups = {food_canola = 1, flammable = 4, food_oil_seed = 1},
 	place_param2 = 3,
 	drops_seeds = 1,
 	custom_growth = {optimum_heat = 50, heat_scaling = "exponential", heat_a = 2.0, heat_b = 1.3, heat_base_speed = 10000, optimum_humidity = 50, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.2, humidity_base_speed = 5000, variance = 2500},
@@ -276,7 +276,8 @@ farming.register_plant("farming:agave", {
 minetest.register_craftitem("farming:agave", {
 	description = "Agave Leaf",
 	inventory_image = "farming_agave.png",
-	groups = {food_syrup = 1},
+	on_use = minetest.item_eat(3),
+	groups = {food_syrup = 1, sugar_source = 1},
 })
 
 -- Rhubarb
@@ -289,7 +290,7 @@ farming.register_plant("farming:rhubarb", {
 	fertility = {"grassland"},
 	groups = {flammable = 4},
 	place_param2 = 2,
-	custom_growth = {optimum_heat = 38, heat_scaling = "exponential", heat_a = 2.1, heat_b = 1.7, heat_base_speed = 10000, optimum_humidity = 75, humidity_scaling = "exponential", humidity_a = 1.2, humidity_b = 1.7, humidity_base_speed = 10000, variance = 2500},
+	custom_growth = {optimum_heat = 35, heat_scaling = "exponential", heat_a = 2.1, heat_b = 1.7, heat_base_speed = 10000, optimum_humidity = 75, humidity_scaling = "exponential", humidity_a = 1.2, humidity_b = 1.7, humidity_base_speed = 10000, variance = 2500},
 })
 
 minetest.register_craftitem("farming:rhubarb", {
@@ -339,6 +340,13 @@ farming.register_plant("farming:sorghum", {
 	custom_growth = {optimum_heat = 75, heat_scaling = "exponential", heat_a = 1.6, heat_b = 1.6, heat_base_speed = 7500, optimum_humidity = 35, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 7500, variance = 2500},
 })
 
+minetest.register_craftitem("farming:sorghum", {
+	description = "Sorghum",
+	inventory_image = "farming_sorghum.png",
+	on_use = minetest.item_eat(2),
+	groups = {food_grain = 1},
+})
+
 -- Corn
 
 farming.register_plant("farming:corn", {
@@ -350,6 +358,13 @@ farming.register_plant("farming:corn", {
 	groups = {flammable = 4, spoils=7},
 	place_param2 = 3,
 	custom_growth = {optimum_heat = 62, heat_scaling = "exponential", heat_a = 1.6, heat_b = 1.6, heat_base_speed = 4500, optimum_humidity = 33, humidity_scaling = "exponential", humidity_a = 1.5, humidity_b = 1.5, humidity_base_speed = 5500, variance = 2500},
+})
+
+minetest.register_craftitem("farming:corn", {
+	description = "Corn Cob",
+	inventory_image = "farming_corn.png",
+	on_use = minetest.item_eat(3),
+	groups = {food_grain = 1, food_salad = 1},
 })
 
 -- Rye
@@ -371,6 +386,80 @@ minetest.register_craft({
 	recipe = {"farming:rye", "farming:rye", "farming:rye"}
 })
 
+-- Tomato
+
+farming.register_plant("farming:tomato", {
+	description = "Tomato Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_tomato_seed.png",
+	steps = 6,
+	fertility = {"grassland","desert"},
+	groups = {food_tomato = 1, flammable = 4, spoils=7},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 70, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 7500, optimum_humidity = 43, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 7500, variance = 2500},
+})
+
+minetest.register_craftitem("farming:tomato", {
+	description = "Tomato",
+	inventory_image = "farming_tomato.png",
+	on_use = minetest.item_eat(2),
+	groups = {food_salad = 1},
+})
+
+-- Spice Leaf
+
+farming.register_plant("farming:spice_leaf", {
+	description = "Spice Leaf Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_spice_leaf_seed.png",
+	steps = 2,
+	fertility = {"grassland","desert"},
+	groups = {food_spice = 1, flammable = 4},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 54, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 15000, optimum_humidity = 34, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 15000, variance = 2500},
+})
+
+-- Lettuce
+
+farming.register_plant("farming:lettuce", {
+	description = "Lettuce Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_lettuce_seed.png",
+	steps = 3,
+	fertility = {"grassland","desert"},
+	groups = {food_salad = 1, flammable = 4},
+	place_param2 = 2,
+	custom_growth = {optimum_heat = 42, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 7500, optimum_humidity = 48, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 7500, variance = 2500},
+})
+
+minetest.register_craftitem("farming:lettuce", {
+	description = "Lettuce Leaf",
+	inventory_image = "farming_lettuce.png",
+	on_use = minetest.item_eat(2),
+	groups = {food_salad = 1}
+})
+
+-- Beet
+
+farming.register_plant("farming:beet", {
+	description = "Sugar Beet Seed",
+	paramtype2 = "meshoptions",
+	inventory_image = "farming_beet_seed.png",
+	steps = 3,
+	fertility = {"grassland"},
+	groups = {food_salad = 1, flammable = 4},
+	place_param2 = 3,
+	custom_growth = {optimum_heat = 42, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 7500, optimum_humidity = 61, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 7500, variance = 2500},
+})
+
+minetest.register_craftitem("farming:beet", {
+	description = "Sugar Beet",
+	inventory_image = "farming_beet.png",
+	on_use = minetest.item_eat(2),
+	groups = {food_salad = 1, sugar_source = 1}
+})
+
+
 -- Other new ingredients
 
 minetest.register_craftitem("farming:seed_oil", {
@@ -379,10 +468,16 @@ minetest.register_craftitem("farming:seed_oil", {
 	groups = {food_oil = 1, flammable = 4},
 })
 
-minetest.register_craftitem("farming:tofu", {
-	description = "Tofu",
-	inventory_image = "farming_tofu.png",
-	groups = {food_tofu = 1, food_egg = 1, food_meat = 1},
+minetest.register_craftitem("farming:salt", {
+	description = "Salt",
+	inventory_image = "farming_salt.png",
+	groups = {food_salt = 1},
+})
+
+minetest.register_craftitem("farming:sugar", {
+	description = "Sugar",
+	inventory_image = "farming_sugar.png",
+	groups = {food_sugar = 1},
 })
 
 minetest.register_craft({
@@ -390,6 +485,8 @@ minetest.register_craft({
 	recipe = "farming:seed_oil",
 	burntime = 20,
 })
+
+dofile(farming.path .. "/cooking.lua")
 
 -- Saplings
 
