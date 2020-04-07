@@ -244,7 +244,7 @@ minetest.register_craftitem("farming:spaghetti", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "farming:spaghetti",
-	recipe = {"farming:cooking_pot", "group:food_oil", "farming:salt", "group:food_pasta", "farming:tomato"},
+	recipe = {"farming:cooking_pot", "group:food_oil", "farming:salt", "group:food_pasta", "farming:tomato", "group:food_spice"},
 	replacements = {{"farming:cooking_pot", "farming:cooking_pot"}}
 })
 

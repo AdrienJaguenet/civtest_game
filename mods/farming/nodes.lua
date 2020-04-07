@@ -182,7 +182,7 @@ for i = 1, 5 do
 			{items = {'farming:seed_flax'},rarity = 20},
 			{items = {'farming:seed_tomato'},rarity = 20},
 			{items = {'farming:seed_lettuce'},rarity = 20},
-			--{items = {'farming:seed_spice_leaf'},rarity = 20},
+			{items = {'farming:seed_spice_leaf'},rarity = 20},
 			{items = {'farming:seed_corn'},rarity = 60},
 			{items = {'farming:seed_rye'},rarity = 60},
 			{items = {'default:grass_1'}},
@@ -195,7 +195,7 @@ minetest.override_item("default:junglegrass", {drop = {
 	items = {
 		{items = {'farming:seed_cotton'},rarity = 40},
 		{items = {'farming:seed_rice'},rarity = 20},
-		--{items = {'farming:seed_spice_leaf'},rarity = 20},
+		{items = {'farming:seed_spice_leaf'},rarity = 20},
 		{items = {'default:junglegrass'}},
 	}
 }})

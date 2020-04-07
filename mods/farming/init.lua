@@ -406,7 +406,7 @@ minetest.register_craftitem("farming:tomato", {
 	groups = {food_salad = 1},
 })
 
---[[ Spice Leaf
+-- Spice Leaf
 
 farming.register_plant("farming:spice_leaf", {
 	description = "Spice Leaf Seed",
@@ -418,7 +418,7 @@ farming.register_plant("farming:spice_leaf", {
 	place_param2 = 3,
 	custom_growth = {optimum_heat = 54, heat_scaling = "exponential", heat_a = 1.7, heat_b = 1.7, heat_base_speed = 15000, optimum_humidity = 34, humidity_scaling = "exponential", humidity_a = 1.6, humidity_b = 1.6, humidity_base_speed = 15000, variance = 2500},
 })
-]]
+
 -- Lettuce
 
 farming.register_plant("farming:lettuce", {
