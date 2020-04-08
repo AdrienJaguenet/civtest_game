@@ -465,7 +465,8 @@ minetest.register_craftitem("default:slag", {
 minetest.register_craftitem("default:bacon", {
 	description = "Bacon",
 	inventory_image = "default_bacon.png",
-	on_use = minetest.item_eat(4)
+	on_use = minetest.item_eat(4),
+	groups = {food_smoked_meat = 1, food_cooked_meat = 1}
 })
 
 minetest.register_craftitem("default:pie_meat", {
